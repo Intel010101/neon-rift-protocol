@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Neon Rift Protocol</title>
+  <meta name="description" content="Neon Rift Protocol – a hyper-reactive, lane-shifting roguelite built for frantic mobile play.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div id="bg-warp"></div>
+  <canvas id="game"></canvas>
+
+  <section class="hud">
+    <div class="stat-group">
+      <div class="stat">
+        <span class="label">Score</span>
+        <span id="scoreValue">0</span>
+      </div>
+      <div class="stat">
+        <span class="label">Energy</span>
+        <span id="energyValue">100%</span>
+      </div>
+      <div class="stat">
+        <span class="label">Combo</span>
+        <span id="comboValue">x1.0</span>
+      </div>
+      <div class="stat">
+        <span class="label">Run Lv.</span>
+        <span id="runLevel">1</span>
+      </div>
+      <div class="stat">
+        <span class="label">Best</span>
+        <span id="bestScore">0</span>
+      </div>
+    </div>
+    <div id="statusMessage">▶︎ Tap / arrow keys to start sprinting</div>
+  </section>
+
+  <section class="lower-ui">
+    <div class="touch-controls">
+      <button id="btnLeft" aria-label="Shift left">⟵</button>
+      <button id="btnDash" aria-label="Pulse dash">⚡</button>
+      <button id="btnRight" aria-label="Shift right">⟶</button>
+    </div>
+    <button id="upgradeToggle">Upgrades & Mods</button>
+  </section>
+
+  <section id="upgradePanel" class="panel hidden">
+    <header>
+      <h2>Workshop Mods</h2>
+      <p>Forge permanent buffs using shards. Applies instantly.</p>
+      <button id="closePanel">✕</button>
+    </header>
+    <div id="shardBank">Shards banked: <span id="shardValue">0</span></div>
+    <div id="upgradeCards" class="cards"></div>
+    <div id="achievementPanel">
+      <h3>Feats Logged</h3>
+      <ul id="achievementList"></ul>
+    </div>
+  </section>
+
+  <div id="mobileHint">Swipe or tap left/right. Tap center for dash. Survive, score, repeat.</div>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html>

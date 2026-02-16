@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Orbitron:wght@500&display=swap');
+
+:root {
+  --bg-dark: #05060b;
+  --bg-gradient: linear-gradient(125deg, #05060b 0%, #0b1a33 60%, #180624 100%);
+  --accent: #36f5ff;
+  --accent-strong: #ff4dd8;
+  --text: #f1f6ff;
+  --muted: #7f8aa4;
+  --panel: rgba(5, 6, 11, 0.9);
+  --panel-border: rgba(54, 245, 255, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-gradient);
+  color: var(--text);
+  font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+}
+
+#bg-warp {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 77, 216, 0.2), transparent 35%),
+              radial-gradient(circle at 80% 10%, rgba(54, 245, 255, 0.2), transparent 30%),
+              radial-gradient(circle at 50% 80%, rgba(86, 94, 255, 0.25), transparent 40%);
+  filter: blur(35px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+canvas#game {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.hud {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 5;
+}
+
+.stat-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 6px;
+}
+
+.stat {
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(7, 9, 18, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.stat .label {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.stat span:last-child {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+#statusMessage {
+  background: rgba(7, 9, 18, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.lower-ui {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 5;
+}
+
+.touch-controls {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+
+.touch-controls button {
+  flex: 1;
+  padding: 14px;
+  font-size: 1.5rem;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  background: rgba(6, 9, 20, 0.85);
+  color: var(--text);
+  font-weight: 600;
+  backdrop-filter: blur(6px);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.touch-controls button:active {
+  transform: translateY(2px);
+  border-color: var(--accent);
+}
+
+#upgradeToggle {
+  border: 1px solid var(--panel-border);
+  background: rgba(5, 7, 16, 0.85);
+  padding: 10px;
+  border-radius: 999px;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.panel {
+  position: fixed;
+  inset: auto 8px 8px 8px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  padding: 16px;
+  z-index: 6;
+  backdrop-filter: blur(12px);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.panel.hidden {
+  display: none;
+}
+
+#upgradePanel header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+#upgradePanel h2 {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.08em;
+}
+
+#upgradePanel p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+#closePanel {
+  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.1rem;
+}
+
+#shardBank {
+  margin: 12px 0 6px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: rgba(9, 12, 24, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.card h4 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.card p {
+  margin: 0 0 10px;
+  color: var(--muted);
+  min-height: 42px;
+}
+
+.card button {
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: #00141a;
+  font-weight: 700;
+}
+
+.card button:disabled {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+#achievementPanel {
+  margin-top: 18px;
+}
+
+#achievementList {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#achievementList li {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+}
+
+#mobileHint {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(5, 7, 16, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 18px;
+  border-radius: 999px;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  z-index: 4;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@media (min-width: 768px) {
+  .panel {
+    inset: auto 24px 24px 24px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .touch-controls button {
+    max-width: 140px;
+  }
+}
