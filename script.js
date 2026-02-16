@@ -42,6 +42,10 @@ const defaultProfile = {
   achievements: {}
 };
 
+const deepClone = typeof structuredClone === 'function'
+  ? structuredClone
+  : (obj) => JSON.parse(JSON.stringify(obj));
+
 let profile = loadProfile();
 updateMeta();
 
@@ -128,17 +132,17 @@ const achievements = [
 function loadProfile() {
   try {
     const raw = localStorage.getItem(profileKey);
-    if (!raw) return structuredClone(defaultProfile);
+    if (!raw) return deepClone(defaultProfile);
     const parsed = JSON.parse(raw);
     return {
-      ...structuredClone(defaultProfile),
+      ...deepClone(defaultProfile),
       ...parsed,
       upgrades: { ...defaultProfile.upgrades, ...parsed.upgrades },
       achievements: parsed.achievements || {}
     };
   } catch (err) {
     console.warn('Profile load failed', err);
-    return structuredClone(defaultProfile);
+    return deepClone(defaultProfile);
   }
 }
 
