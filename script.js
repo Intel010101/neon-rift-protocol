@@ -568,5 +568,7 @@ function checkAchievements() {
   });
 }
 
-updateMeta();
-setTimeout(() => mobileHint.remove(), 5000);
+document.addEventListener('DOMContentLoaded', () => {
+  updateMeta();
+  setTimeout(() => mobileHint.remove(), 5000);
+});
