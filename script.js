@@ -47,7 +47,6 @@ const deepClone = typeof structuredClone === 'function'
   : (obj) => JSON.parse(JSON.stringify(obj));
 
 let profile = loadProfile();
-updateMeta();
 
 const state = {
   width: window.innerWidth,
@@ -569,4 +568,5 @@ function checkAchievements() {
   });
 }
 
+updateMeta();
 setTimeout(() => mobileHint.remove(), 5000);
